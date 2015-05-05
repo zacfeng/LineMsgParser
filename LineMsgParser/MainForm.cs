@@ -58,7 +58,6 @@ namespace LineMsgParser
 
             if(dt.Rows.Count == 0)
             {
-                cBoxSpeaker.Items.Remove(cBoxSpeaker.SelectedItem);
                 throw new Exception("您的LINE對話紀錄格式不符。 "+ Environment.NewLine+
                                     path + Environment.NewLine + 
                                     "請將部分記錄附件提供給開發人員: fengying0709@gmail.com");
@@ -73,13 +72,18 @@ namespace LineMsgParser
             firstdate = DateTime.ParseExact(firstdatetimestring, "yyyy/MM/dd", null);
             lastdate = DateTime.ParseExact(lastdatetimestring, "yyyy/MM/dd", null);
 
+            dateTimePicker_Start.MaxDate = new DateTime(9000, 01, 01);
+            dateTimePicker_End.MaxDate = new DateTime(9000, 01, 01);
+            dateTimePicker_Start.MinDate = new DateTime(1800, 01, 01);
+            dateTimePicker_End.MinDate = new DateTime(1800, 01, 01);
+
+            dateTimePicker_Start.MaxDate = lastdate;
+            dateTimePicker_End.MaxDate = lastdate;
+            dateTimePicker_End.Value = lastdate;
+
             dateTimePicker_Start.MinDate = firstdate;
             dateTimePicker_End.MinDate = firstdate;
             dateTimePicker_Start.Value = firstdate;
-
-            dateTimePicker_Start.MaxDate = lastdate;
-            dateTimePicker_End.MaxDate =lastdate;
-            dateTimePicker_End.Value = lastdate;
 
             dataGridView1.DataSource = dt;
             dataGridView1.Columns[3].Width = 600;
